@@ -48,34 +48,6 @@ def minMaxHorizontal(position, gameArray):
     
     return (minX, maxX, minY, maxY)
 
-def minMaxDiagonal(position, gameArray):
-    positionX = position[0]
-    positionY = position[1]
-    maxUpperRightDiagonal = 8
-    minUpperRightDiagonal = 0
-    #Max defined in the positive Y direction
-    maxUpperLeftDiagonal = 8
-    minUpperLeftDiagonal = 0
-    for index in range(positionY, 8):
-        if not (gameArray[index-positionY + positionX][index] == " "):
-            maxUpperRightDiagonal = index
-            break
-    for index in range(positionY, 8):
-        if not (gameArray[positionY-index + positionX][index] == " "):
-            maxUpperLeftDiagonal = index
-            break
-    
-    for index in range(0, positionY):
-        if not(gameArray[index + positionX][positionY - index] == " "):
-            minUpperRightDiagonal = positionY - index
-            break
-    for index in range(0, positionY):
-        if not(gameArray[positionX - index][positionY - index] == " "):
-            minUpperRightDiagonal = positionY - index
-            break
-    
-    return (maxUpperRightDiagonal, minUpperRightDiagonal, \
-        maxUpperLeftDiagonal, minUpperLeftDiagonal)
 
 
 def validateRook(initialPosition, finalPosition, gameArray):
@@ -102,43 +74,22 @@ def validateKnight(initialPosition, finalPosition, gameArray):
             return True
     return False
 
-def validateBishop(initialPosition, finalPosition, gameArray):
-    (maxUpperRightDiagonal, minUpperRightDiagonal, \
-        maxUpperLeftDiagonal, minUpperLeftDiagonal) = \
-            minMaxDiagonal(initialPosition, gameArray)
-    # if (abs(initialPosition[0] - finalPosition[0]) - \
-    #     abs(initialPosition[1] - finalPosition[1])):
-    #     return False 
-    if initialPosition[0] > finalPosition[0]: #this means it moved up
-        if initialPosition[1] < finalPosition[1]: #this moved right
-            spacesMovedUp = initialPosition[1] - finalPosition[1]
-            spacesMoveRight = initialPosition[0] - finalPosition[0]
-            if spacesMovedUp == spacesMoveRight and spacesMovedUp <= maxUpperRightDiagonal:
-                return True
-            else:
-                return False
-        else: #this moved up left
-            spacesMovedUp = initialPosition[1] - finalPosition[1]
-            spacesMoveleft = finalPosition[0] - initialPosition[0] 
-            if spacesMovedUp == spacesMoveleft and spacesMovedUp <= maxUpperLeftDiagonal:
-                return True
-            else:
-                return False
-    else: # this means it moved down
-        if initialPosition[1] < finalPosition[1]: #this moved down right
-            spacesMovedDown = finalPosition[1] - initialPosition[1]
-            spacesMoveRight = finalPosition[0] - initialPosition[0] 
-            if spacesMovedUp == spacesMoveRight and spacesMovedDown <= minUpperLeftDiagonal:
-                return True
-            else:
-                return False
-        else: #this moved down left
-            spacesMovedDown = finalPosition[1] - initialPosition[1]
-            spacesMoveleft = initialPosition[0] - finalPosition[0]
-            if spacesMovedUp == spacesMoveleft and spacesMovedDown <= minUpperRightDiagonal:
-                return True
-            else:
-                return False
+def validateBishop(board, start, end):
+    # check if the start and end positions are on the same diagonal
+    if abs(start[0] - end[0]) != abs(start[1] - end[1]):
+        return False
+
+    # check if there are any pieces blocking the bishop's path
+    row_step = 1 if start[0] < end[0] else -1
+    col_step = 1 if start[1] < end[1] else -1
+    row = start[0] + row_step
+    col = start[1] + col_step
+
+    while row != end[0] and col != end[1]:
+        if board[row][col] != " ":
+            return False
+        row += row_step
+        col += col_step
 def validateQueen(initialPosition, finalPosition, gameArray):
     return validateBishop(initialPosition, finalPosition, gameArray) or \
         validateRook(initialPosition, finalPosition, gameArray)
