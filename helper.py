@@ -60,7 +60,14 @@ def validateRook(initialPosition, finalPosition, gameArray):
         
 
 def validateKnight(initialPosition, finalPosition, gameArray):
-    pass
+    knightMoves = [(-1,2), (1,2), (2,1), (2,-1), (-1,-2), (-1,2), (-2,1), (-2,-1)]
+    if not(finalPosition[0] in range(0,8)) or not(finalPosition[1] in range(0, 8)):
+        return False
+
+    for move in knightMoves:
+        if initialPosition + move == finalPosition:
+            return True
+    return False
 
 def validateBishop(initialPosition, finalPosition, gameArray):
     pass
