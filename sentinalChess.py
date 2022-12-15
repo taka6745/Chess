@@ -2,6 +2,7 @@ from init import *
 from helper import *
 from interface import displayBoard
 import time
+
 class sentinalGame(object):
 
     def __init__(self):
@@ -49,26 +50,15 @@ class sentinalGame(object):
         at that position. Using this piece object, the check_move method is called with the moveFrom and 
         moveTo string.
         """
-        pass
+        print(validateMove(moveString, self.gameArray))
 
-    def check_move(self, rook: Rook, moveFrom: str, moveTo: str):
-        pass
-
-    def check_move(self, bishop: Bishop, moveFrom: str, moveTo: str):
-        pass
-
-    def check_move(self, pawn: Pawn, moveFrom: str, moveTo: str):
-        pass
-
-    def check_move(self, knight: Knight, moveFrom: str, moveTo: str):
-        pass
-
-    def check_move(self, queen: Queen, moveFrom: str, moveTo: str):
-        pass
-
-    def check_move(self, king: King, moveFrom: str, moveTo: str):
-        pass
-
-
-
-sentinalGame()
+def main():
+    #Checking Rook Movements
+    sentinal = sentinalGame() 
+    sentinal.check_moveString("D4,D2") #False
+    sentinal.check_moveString("D4,D6") #True
+    sentinal.check_moveString("D4,A4") #True
+    sentinal.check_moveString("D4,H4") #True 
+    sentinal.check_moveString("D4,C6") #False
+if __name__ == "__main__":
+    main()
