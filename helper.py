@@ -108,7 +108,7 @@ def validateBishop(initialPosition, finalPosition, gameArray):
     # if (abs(initialPosition[0] - finalPosition[0]) - \
     #     abs(initialPosition[1] - finalPosition[1])):
     #     return False 
-    if initialPosition[0] < finalPosition[0]: #this means it moved up
+    if initialPosition[0] > finalPosition[0]: #this means it moved up
         if initialPosition[1] < finalPosition[1]: #this moved right
             spacesMovedUp = initialPosition[1] - finalPosition[1]
             spacesMoveRight = initialPosition[0] - finalPosition[0]
