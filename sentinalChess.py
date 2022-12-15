@@ -1,6 +1,7 @@
 from init import *
 from helper import *
-
+from interface import displayBoard
+import time
 class sentinalGame(object):
 
     def __init__(self):
@@ -26,7 +27,11 @@ class sentinalGame(object):
         for i in range(8):
             self.gameArray[1][i] = Pawn("White")
             self.gameArray[6][i] = Pawn("Black")
-
+        
+        displayBoard(self.gameArray)
+        
+        self.gameArray = updateBoard((1,0),(3,0),self.gameArray)
+        displayBoard(self.gameArray)
     def attemptMove(self):
         moveString = input("Your move: ")
         validateMove(moveString, self.gameArray)
@@ -74,3 +79,4 @@ class sentinalGame(object):
 
 
 
+sentinalGame()
