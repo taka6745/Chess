@@ -1,5 +1,10 @@
 # Design Document for the text-based Chess portion for Sentinel 
 
+## Tips for each other
+The greatest line of python shell code in existence:
+exec(open("filename").read())
+You might have used this before but if not, once typing python3 in terminal to open the python shell, this line of code will somehow initialise the file "filename" in the shell and allow you to access the classes and function in the file. So for example. exec(open("sentinalChess.py").read()) would allow you to then create an instance of sentinalGame() and call its methods and access its class variables and everything which is so good for debugging issues.
+
 ## Overall Design
 This is for the local version of chess stored on the Raspberry Pi Zero W that will handle every game to check moves / validate moves in order to send them to chess.com / LiChess.com And will be used for offline games. This will be used to make sure that if a move is illegal that the board notifies the player and moves the piece back (Possibly with a buzzer)
 
