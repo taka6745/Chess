@@ -1,4 +1,5 @@
-
+from init import *
+"""
 class Piece(object):
     def __init__(self):
         pass
@@ -92,7 +93,7 @@ class BlackKnight(Knight):
 class WhiteKnight(Knight):
     def __init__(self):
         super().__init__()
-
+"""
 
 class sentinalGame(object):
 
