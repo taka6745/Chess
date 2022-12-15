@@ -157,7 +157,10 @@ def validateMove(moveString, gameArray):
 
 
 
-
+def updateBoard(startMove, endMove, board):
+    board[endMove[0]][endMove[1]] = board[startMove[0]][startMove[1]]
+    board[startMove[0]][startMove[1]] = ' '
+    return board
 
 
 
