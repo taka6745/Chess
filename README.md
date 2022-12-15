@@ -1,3 +1,4 @@
+
 # Design Document for the text-based Chess portion for Sentinel 
 
 ## Tips for each other
@@ -77,9 +78,45 @@ Then you could just add it back into the new position
 ``board[3[3]] = fifthBlackPawn``
 END EDIT
 
+>START EDIT
+
+tried the pop thing and it kept deleting all lines, apparently there's something weird about ``pop()`` and deleting objects and you're supposed to you ``del array[index]`` instead but even that was clunky but the easiest way of doing it seems like it'll work
+```
+board[endMove[0]][endMove[1]] = board[startMove[0]][startMove[1]]
+board[startMove[0]][startMove[1]] = ' '
+```
+starting with an array of 
+```
+board = [
+["r", "n", "b", "q", "k", "b", "n", "r"],
+[Pawn, Pawn, Pawn, Pawn, Pawn, Pawn, Pawn, Pawn],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+["P", "P", "P", "P", "P", "P", "P", "P"],
+["R", "N", "B", "Q", "K", "B", "N", "R"]
+]
+```
+using this format will give you
+```
+board = [
+["r", "n", "b", "q", "k", "b", "n", "r"],
+[" ", Pawn, Pawn, Pawn, Pawn, Pawn, Pawn, Pawn],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+["Pawn", " ", " ", " ", " ", " ", " ", " "],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+["P", "P", "P", "P", "P", "P", "P", "P"],
+["R", "N", "B", "Q", "K", "B", "N", "R"]
+]
+```
+> END EDIT
 
 say we went about this by going ``board.pop[1[3]]`` to delete the object (and it wouldn't be a string it'd be called fifthBlackPawn or whatever when we declared it using ``fifthBlackPawn = Pawn("Black")`` 
 so when we go to put it back into the array at ``board[3[3]]`` we can't go ``fifthBlackPawn = Pawn("Black")`` because we wouldn't know what to name the piece or what kind of object it was **HOWEVER** while writing this I found something called ``exec`` in python that does let you create lines of python from strings and here's an example
+
+
 ```
 class Pawn:
   colour = "Black"
