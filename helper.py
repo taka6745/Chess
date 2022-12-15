@@ -68,9 +68,11 @@ def minMaxDiagonal(position, gameArray):
     for index in range(0, positionY):
         if not(gameArray[index + positionX][positionY - index] == " "):
             minUpperRightDiagonal = positionY - index
+            break
     for index in range(0, positionY):
         if not(gameArray[positionX - index][positionY - index] == " "):
             minUpperRightDiagonal = positionY - index
+            break
     
     return (maxUpperRightDiagonal, minUpperRightDiagonal, \
         maxUpperLeftDiagonal, minUpperLeftDiagonal)
@@ -107,7 +109,6 @@ def validateBishop(initialPosition, finalPosition, gameArray):
         abs(initialPosition[1] - finalPosition[1])):
         return False 
 
-    pass
 
 def validateQueen(initialPosition, finalPosition, gameArray):
     return validateBishop(initialPosition, finalPosition, gameArray) or \
