@@ -105,11 +105,39 @@ def validateBishop(initialPosition, finalPosition, gameArray):
     (maxUpperRightDiagonal, minUpperRightDiagonal, \
         maxUpperLeftDiagonal, minUpperLeftDiagonal) = \
             minMaxDiagonal(initialPosition, gameArray)
-    if (abs(initialPosition[0] - finalPosition[0]) - \
-        abs(initialPosition[1] - finalPosition[1])):
-        return False 
-
-
+    # if (abs(initialPosition[0] - finalPosition[0]) - \
+    #     abs(initialPosition[1] - finalPosition[1])):
+    #     return False 
+    if initialPosition[0] < finalPosition[0]: #this means it moved up
+        if initialPosition[1] < finalPosition[1]: #this moved right
+            spacesMovedUp = initialPosition[1] - finalPosition[1]
+            spacesMoveRight = initialPosition[0] - finalPosition[0]
+            if spacesMovedUp == spacesMoveRight and spacesMovedUp <= maxUpperRightDiagonal:
+                return True
+            else:
+                return False
+        else: #this moved up left
+            spacesMovedUp = initialPosition[1] - finalPosition[1]
+            spacesMoveleft = finalPosition[0] - initialPosition[0] 
+            if spacesMovedUp == spacesMoveleft and spacesMovedUp <= maxUpperLeftDiagonal:
+                return True
+            else:
+                return False
+    else: # this means it moved down
+        if initialPosition[1] < finalPosition[1]: #this moved down right
+            spacesMovedDown = finalPosition[1] - initialPosition[1]
+            spacesMoveRight = finalPosition[0] - initialPosition[0] 
+            if spacesMovedUp == spacesMoveRight and spacesMovedDown <= minUpperLeftDiagonal:
+                return True
+            else:
+                return False
+        else: #this moved down left
+            spacesMovedDown = finalPosition[1] - initialPosition[1]
+            spacesMoveleft = initialPosition[0] - finalPosition[0]
+            if spacesMovedUp == spacesMoveleft and spacesMovedDown <= minUpperRightDiagonal:
+                return True
+            else:
+                return False
 def validateQueen(initialPosition, finalPosition, gameArray):
     return validateBishop(initialPosition, finalPosition, gameArray) or \
         validateRook(initialPosition, finalPosition, gameArray)
