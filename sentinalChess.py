@@ -1,99 +1,5 @@
 from init import *
-"""
-class Piece(object):
-    def __init__(self):
-        pass
-
-class Rook(Piece):
-    def __init__(self):
-        has_moved = False
-    
-    def __str__(self):
-        return "R"
-
-class BlackRook(Rook):
-    def __init__(self):
-        super().__init__()
-
-class WhiteRook(Rook):
-    def __init__(self):
-        super().__init__()
-
-class Pawn(Piece):
-    def __init__(self):
-        moved_last_move = False
-    
-    def __str__(self):
-        return "P"
-
-class BlackPawn(Pawn):
-    def __init__(self):
-        super().__init__()
-
-class WhitePawn(Pawn):
-    def __init__(self):
-        super().__init__()
-
-class Bishop(Piece):
-    def __init__(self):
-        has_moved = False
-        
-    def __str__(self):
-        return "B"
-
-class BlackBishop(Bishop):
-    def __init__(self):
-        super().__init__()
-
-class WhiteBishop(Bishop):
-    def __init__(self):
-        super().__init__()
-
-class Queen(Piece):
-    def __init__(self):
-        moved_last_move = False
-
-    def __str__(self):
-        return "Q"
-
-class BlackQueen(Queen):
-    def __init__(self):
-        super().__init__()
-
-class WhiteQueen(Queen):
-    def __init__(self):
-        super().__init__()
-
-class King(Piece):
-    def __init__(self):
-        has_moved = False
-
-    def __str__(self):
-        return "K"
-
-class BlackKing(King):
-    def __init__(self):
-        super().__init__()
-
-class WhiteKing(King):
-    def __init__(self):
-        super().__init__()
-
-class Knight(Piece):
-    def __init__(self):
-        has_moved = False
-
-    def __str__(self):
-        return "H"
-
-class BlackKnight(Knight):
-    def __init__(self):
-        super().__init__()
-
-class WhiteKnight(Knight):
-    def __init__(self):
-        super().__init__()
-"""
+from helper import *
 
 class sentinalGame(object):
 
@@ -101,25 +7,29 @@ class sentinalGame(object):
         numColumns = 8
         numRows = 8
         self.gameArray = [[" " for _ in range(numColumns)] for _ in range(numRows)]
-        self.gameArray[0][0] = Rook()
-        self.gameArray[0][1] = Knight()
-        self.gameArray[0][2] = Bishop()
-        self.gameArray[0][3] = Queen()
-        self.gameArray[0][4] = King()
-        self.gameArray[0][5] = Bishop()
-        self.gameArray[0][6] = Knight()
-        self.gameArray[0][7] = Rook()
-        self.gameArray[7][0] = Rook()
-        self.gameArray[7][1] = Knight()
-        self.gameArray[7][2] = Bishop()
-        self.gameArray[7][3] = Queen()
-        self.gameArray[7][4] = King()
-        self.gameArray[7][5] = Bishop()
-        self.gameArray[7][6] = Knight()
-        self.gameArray[7][7] = Rook()
+        self.gameArray[0][0] = Rook("White")
+        self.gameArray[0][1] = Knight("White")
+        self.gameArray[0][2] = Bishop("White")
+        self.gameArray[0][3] = Queen("White")
+        self.gameArray[0][4] = King("White")
+        self.gameArray[0][5] = Bishop("White")
+        self.gameArray[0][6] = Knight("White")
+        self.gameArray[0][7] = Rook("White")
+        self.gameArray[7][0] = Rook("Black")
+        self.gameArray[7][1] = Knight("Black")
+        self.gameArray[7][2] = Bishop("Black")
+        self.gameArray[7][3] = Queen("Black")
+        self.gameArray[7][4] = King("Black")
+        self.gameArray[7][5] = Bishop("Black")
+        self.gameArray[7][6] = Knight("Black")
+        self.gameArray[7][7] = Rook("Black")
         for i in range(8):
-            self.gameArray[1][i] = Pawn()
-            self.gameArray[6][i] = Pawn()
+            self.gameArray[1][i] = Pawn("White")
+            self.gameArray[6][i] = Pawn("Black")
+
+    def attemptMove(self):
+        moveString = input("Your move: ")
+        validateMove(moveString, self.gameArray)
 
     
     
