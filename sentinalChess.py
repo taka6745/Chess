@@ -31,15 +31,6 @@ class sentinalGame(object):
         moveString = input("Your move: ")
         validateMove(moveString, self.gameArray)
 
-    
-    
-    
-
-
-
-
-    
-        
 
     def check_moveString(self, moveString: str):
         """
