@@ -78,7 +78,8 @@ def validateBishop(board, start, end):
     # check if the start and end positions are on the same diagonal
     if abs(start[0] - end[0]) != abs(start[1] - end[1]):
         return False
-
+    if start[0] > 7 or start[1] > 7 or end[0] > 7 or end[1] > 7:
+        return False
     # check if there are any pieces blocking the bishop's path
     row_step = 1 if start[0] < end[0] else -1
     col_step = 1 if start[1] < end[1] else -1
@@ -90,6 +91,8 @@ def validateBishop(board, start, end):
             return False
         row += row_step
         col += col_step
+
+    return True
 def validateQueen(initialPosition, finalPosition, gameArray):
     return validateBishop(initialPosition, finalPosition, gameArray) or \
         validateRook(initialPosition, finalPosition, gameArray)
@@ -143,10 +146,3 @@ def updateBoard(startMove, endMove, board):
     board[endMove[0]][endMove[1]] = board[startMove[0]][startMove[1]]
     board[startMove[0]][startMove[1]] = ' '
     return board
-
-
-
-
-
-
-
