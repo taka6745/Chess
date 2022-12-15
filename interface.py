@@ -139,12 +139,16 @@ class boardPrinter():
         self._board = Board(root)
         self._board.pack()
         self.draw(gameArray)
-        input("Hello") # do we need this
+        
+        
+        
 
     def draw(self, gameArray):
         self._board.delete("all")
         self._board.draw_pieces(gameArray)
-        input("Hello") # do we need this
+      
+        
+
 
 
 class interface(object):

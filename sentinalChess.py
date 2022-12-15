@@ -29,9 +29,10 @@ class sentinalGame(object):
             self.gameArray[6][i] = Pawn("Black")
         
         displayBoard(self.gameArray)
-        
+        input("Hi")
         self.gameArray = updateBoard((1,0),(3,0),self.gameArray)
         displayBoard(self.gameArray)
+        input("Hello")
     def attemptMove(self):
         moveString = input("Your move: ")
         validateMove(moveString, self.gameArray)
