@@ -26,42 +26,72 @@ def minMaxHorizontal(position, gameArray):
     positionY = position[1]
     maxX = 8
     maxY = 8
-    for index in range(positionX, 7):
-        if not gameArray[index][positionY] == " ":
+    for index in range(positionX, 8):
+        if not (gameArray[index][positionY] == " "):
             maxX = index
             break
-    for index in range(positionY, 7):
-        if not gameArray[positionX][index] == " ":
+    for index in range(positionY, 8):
+        if not (gameArray[positionX][index] == " "):
             maxY = index
             break
 
     minX = 0
     minY = 0
     for index in range(0, positionX):
-        if not gameArray[positionX - index][positionY] == " ":
+        if not (gameArray[positionX - index][positionY] == " "):
             minX = positionX - index - 1
             break
     for index in range(0, positionY):
-        if not gameArray[positionX][positionY - index] == " ":
+        if not (gameArray[positionX][positionY - index] == " "):
             minY = positionY - index
             break
     
     return (minX, maxX, minY, maxY)
 
+def minMaxDiagonal(position, gameArray):
+    positionX = position[0]
+    positionY = position[1]
+    maxUpperRightDiagonal = 8
+    minUpperRightDiagonal = 0
+    #Max defined in the positive Y direction
+    maxUpperLeftDiagonal = 8
+    minUpperLeftDiagonal = 0
+    for index in range(positionY, 8):
+        if not (gameArray[index-positionY + positionX][index] == " "):
+            maxUpperRightDiagonal = index
+            break
+    for index in range(positionY, 8):
+        if not (gameArray[positionY-index + positionX][index] == " "):
+            maxUpperLeftDiagonal = index
+            break
+    
+    for index in range(0, positionY):
+        if not(gameArray[index + positionX][positionY - index] == " "):
+            minUpperRightDiagonal = positionY - index
+    for index in range(0, positionY):
+        if not(gameArray[positionX - index][positionY - index] == " "):
+            minUpperRightDiagonal = positionY - index
+    
+    return (maxUpperRightDiagonal, minUpperRightDiagonal, \
+        maxUpperLeftDiagonal, minUpperLeftDiagonal)
+
 
 def validateRook(initialPosition, finalPosition, gameArray):
     (minX, maxX, minY, maxY) = minMaxHorizontal(initialPosition, gameArray)
-    if not (initialPosition[0] == finalPosition[0]) and not (initialPosition[1] == finalPosition[1]):
+    if not (initialPosition[0] == finalPosition[0]) and not\
+         (initialPosition[1] == finalPosition[1]):
         return False
-    elif finalPosition[0] in range(minX, maxX) and finalPosition[1] in range(minY, maxY):
+    elif finalPosition[0] in range(minX, maxX) and \
+        finalPosition[1] in range(minY, maxY):
         return True
     else:
         return False
-        
 
 def validateKnight(initialPosition, finalPosition, gameArray):
-    knightMoves = [(-1,2), (1,2), (2,1), (2,-1), (-1,-2), (-1,2), (-2,1), (-2,-1)]
-    if not(finalPosition[0] in range(0,8)) or not(finalPosition[1] in range(0, 8)):
+    knightMoves = [(-1,2), (1,2), (2,1), (2,-1), \
+        (-1,-2), (-1,2), (-2,1), (-2,-1)]
+    if not(finalPosition[0] in range(0,8)) or \
+        not(finalPosition[1] in range(0, 8)):
         return False
 
     for move in knightMoves:
@@ -70,13 +100,25 @@ def validateKnight(initialPosition, finalPosition, gameArray):
     return False
 
 def validateBishop(initialPosition, finalPosition, gameArray):
+    (maxUpperRightDiagonal, minUpperRightDiagonal, \
+        maxUpperLeftDiagonal, minUpperLeftDiagonal) = \
+            minMaxDiagonal(initialPosition, gameArray)
+    if (abs(initialPosition[0] - finalPosition[0]) - \
+        abs(initialPosition[1] - finalPosition[1])):
+        return False 
+
     pass
 
 def validateQueen(initialPosition, finalPosition, gameArray):
-    pass
+    return validateBishop(initialPosition, finalPosition, gameArray) or \
+        validateRook(initialPosition, finalPosition, gameArray)
 
 def validateKing(initialPosition, finalPosition, gameArray):
-    pass
+    kingMoves = [(1,-1), (1,0), (1,1), (0,-1), (0,1), (-1,-1), (-1,0), (-1,1)]
+    for move in kingMoves:
+        if initialPosition + move == finalPosition:
+            return True
+    return False
 
 def validatePawn(initialPosition, finalPosition, gameArray):
     pass
