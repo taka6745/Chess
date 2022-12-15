@@ -1,8 +1,6 @@
-from init import *
+from pieces import *
 from helper import *
 from interface import displayBoard
-import time
-
 class sentinalGame(object):
 
     def __init__(self):
