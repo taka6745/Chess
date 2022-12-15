@@ -10,8 +10,8 @@ of initial and final positions)
 def convertStringToIndex(moveString):
     (initialString, finalString) = moveString.split(",")
     #Convert capital character to number
-    initialPosition = (ord(initialString[0]) - 65, initialString[1] - 1)
-    finalPosition = (ord(finalString[0]) - 65, finalString[1] - 1)
+    initialPosition = (ord(initialString[0]) - 65, int(initialString[1]) - 1)
+    finalPosition = (ord(finalString[0]) - 65, int(finalString[1]) - 1)
     return (initialPosition, finalPosition)
 
 """
@@ -26,24 +26,24 @@ def minMaxHorizontal(position, gameArray):
     positionY = position[1]
     maxX = 8
     maxY = 8
-    for index in range(positionX, 8):
+    for index in range(positionX+1, 8):
         if not (gameArray[index][positionY] == " "):
-            maxX = index
-            break
-    for index in range(positionY, 8):
-        if not (gameArray[positionX][index] == " "):
             maxY = index
+            break
+    for index in range(positionY+1, 8):
+        if not (gameArray[positionX][index] == " "):
+            maxX = index
             break
 
     minX = 0
     minY = 0
     for index in range(0, positionX):
         if not (gameArray[positionX - index][positionY] == " "):
-            minX = positionX - index - 1
+            minY = positionX - index - 1
             break
     for index in range(0, positionY):
-        if not (gameArray[positionX][positionY - index] == " "):
-            minY = positionY - index
+        if not (gameArray[positionX][positionY - index - 1] == " "):
+            minX = positionY - index 
             break
     
     return (minX, maxX, minY, maxY)
@@ -79,6 +79,7 @@ def minMaxDiagonal(position, gameArray):
 
 
 def validateRook(initialPosition, finalPosition, gameArray):
+    #Method seems to work based off basic checks.
     (minX, maxX, minY, maxY) = minMaxHorizontal(initialPosition, gameArray)
     if not (initialPosition[0] == finalPosition[0]) and not\
          (initialPosition[1] == finalPosition[1]):
@@ -108,6 +109,7 @@ def validateBishop(initialPosition, finalPosition, gameArray):
     if (abs(initialPosition[0] - finalPosition[0]) - \
         abs(initialPosition[1] - finalPosition[1])):
         return False 
+    
 
 
 def validateQueen(initialPosition, finalPosition, gameArray):
@@ -138,22 +140,24 @@ def validateMove(moveString, gameArray):
     #piece variable is the piece being moved, must first validate
     #the existence of a piece at initialPosition
     piece = gameArray[initialPosition[0]][initialPosition[1]]
-    if piece == " ": return False #Could give more detailed error messages
+    if piece == " ":
+         return False #Could give more detailed error messages
     #Now, must ascertain if move is possible depending on piece
     #Use switch statement to call correct function
-    match str(piece):
+    pieceString = str(piece)
+    match pieceString:
         case "R":
-            validateRook(initialPosition, finalPosition, gameArray)
+            return(validateRook(initialPosition, finalPosition, gameArray))
         case "H":
-            validateKnight(initialPosition, finalPosition, gameArray)
+            return(validateKnight(initialPosition, finalPosition, gameArray))
         case "B":
-            validateBishop(initialPosition, finalPosition, gameArray)
+            return(validateBishop(initialPosition, finalPosition, gameArray))
         case "K":
-            validateKing(initialPosition, finalPosition, gameArray)
+            return(validateKing(initialPosition, finalPosition, gameArray))
         case "Q":
-            validateQueen(initialPosition, finalPosition, gameArray)
+            return(validateQueen(initialPosition, finalPosition, gameArray))
         case "P":
-            validatePawn(initialPosition, finalPosition, gameArray)
+            return(validatePawn(initialPosition, finalPosition, gameArray))
 
 
 
