@@ -69,7 +69,15 @@ board = [
 ["P", "P", "P", "P", "P", "P", "P", "P"],
 ["R", "N", "B", "Q", "K", "B", "N", "R"]
 ]
+EDIT!!!!!!!!
 ```
+I think there is a way to move an object to a different square without deleting and reinitialising it. The pop() method removes the object of the dict/array and returns the object itself. So, the following code could be used
+``fifthBlackPawn = board.pop[1[3]]``
+Then you could just add it back into the new position
+``board[3[3]] = fifthBlackPawn``
+END EDIT
+
+
 say we went about this by going ``board.pop[1[3]]`` to delete the object (and it wouldn't be a string it'd be called fifthBlackPawn or whatever when we declared it using ``fifthBlackPawn = Pawn("Black")`` 
 so when we go to put it back into the array at ``board[3[3]]`` we can't go ``fifthBlackPawn = Pawn("Black")`` because we wouldn't know what to name the piece or what kind of object it was **HOWEVER** while writing this I found something called ``exec`` in python that does let you create lines of python from strings and here's an example
 ```

@@ -57,10 +57,7 @@ def validateRook(initialPosition, finalPosition, gameArray):
         return True
     else:
         return False
-
-    
-
-    pass
+        
 
 def validateKnight(initialPosition, finalPosition, gameArray):
     pass
