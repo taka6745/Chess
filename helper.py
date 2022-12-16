@@ -14,6 +14,12 @@ def convertStringToIndex(moveString):
     finalPosition = (ord(finalString[0]) - 65, int(finalString[1]) - 1)
     return (initialPosition, finalPosition)
 
+def gameArrayChecker(gameArray, xIndex, yIndex, pieceWhite):
+    if not (gameArray[xIndex][yIndex] == " "):
+        if Piece(gameArray[xIndex][yIndex]).white == pieceWhite:
+            return True
+
+
 """
 validatePieceFunctions()
 ----------------
@@ -21,28 +27,30 @@ initialPosition: tuple of starting position
 finalPosition: tuple of ending position
 Returns: True if move possible, false if otherwise
 """
-def minMaxHorizontal(position, gameArray):
+def minMaxHorizontal(position, gameArray, pieceWhite):
     positionX = position[0]
     positionY = position[1]
     maxX = 8
     maxY = 8
     for index in range(positionX+1, 8):
-        if not (gameArray[index][positionY] == " "):
+        if gameArrayChecker(gameArray, index, positionY, pieceWhite):
             maxY = index
             break
     for index in range(positionY+1, 8):
-        if not (gameArray[positionX][index] == " "):
+        if gameArrayChecker(gameArray, positionX, index, pieceWhite):
             maxX = index
             break
 
     minX = 0
     minY = 0
     for index in range(0, positionX):
-        if not (gameArray[positionX - index][positionY] == " "):
+        if gameArrayChecker(gameArray, positionX - index, \
+            positionY, pieceWhite):
             minY = positionX - index - 1
             break
     for index in range(0, positionY):
-        if not (gameArray[positionX][positionY - index - 1] == " "):
+        if gameArrayChecker(gameArray, positionX, \
+            positionY - index, pieceWhite):
             minX = positionY - index 
             break
     
@@ -52,10 +60,12 @@ def minMaxHorizontal(position, gameArray):
 
 def validateRook(initialPosition, finalPosition, gameArray, pieceWhite):
     #Method seems to work based off basic checks.
-    (minX, maxX, minY, maxY) = minMaxHorizontal(initialPosition, gameArray)
+    (minX, maxX, minY, maxY) = minMaxHorizontal(initialPosition, gameArray, \
+        pieceWhite)
     if not (initialPosition[0] == finalPosition[0]) and not\
          (initialPosition[1] == finalPosition[1]):
         return False
+
     elif finalPosition[0] in range(minX, maxX) and \
         finalPosition[1] in range(minY, maxY):
         return True
@@ -103,11 +113,19 @@ def validateBishop(board, start, end, pieceWhite):
     return True
 
 def validateQueen(initialPosition, finalPosition, gameArray, pieceWhite):
-    return validateBishop(initialPosition, finalPosition, gameArray) or \
-        validateRook(initialPosition, finalPosition, gameArray)
+    return validateBishop(initialPosition, finalPosition, gameArray, \
+        pieceWhite) or validateRook(initialPosition, finalPosition, \
+            gameArray)
 
 def validateKing(initialPosition, finalPosition, gameArray, pieceWhite):
     kingMoves = [(1,-1), (1,0), (1,1), (0,-1), (0,1), (-1,-1), (-1,0), (-1,1)]
+    if not(finalPosition[0] in range(0, 8)) or \
+        not(finalPosition[1] in range(0, 8)):
+        return False
+    if gameArray[finalPosition[0]][finalPosition[1]] != " ":
+        if Piece(gameArray[finalPosition[0][finalPosition[1]]]).white == \
+            pieceWhite:
+            return False
     for move in kingMoves:
         if initialPosition + move == finalPosition:
             return True
