@@ -30,6 +30,8 @@ class sentinalGame(object):
         self.gameArray[3][3] = Bishop("White")
         self.gameArray[4][4] = Rook("White")
         self.gameArray[3][5] = Queen("Black")
+        self.gameArray[4][2] = Knight("Black")
+        self.gameArray[4][6] = King("White")
 
         #With that above, A1 is (7, 0), A8 is (0, 0)
         #H1 is (7, 7) and H8 is (0,7)
@@ -60,7 +62,7 @@ class sentinalGame(object):
 def main():
     sentinal = sentinalGame() 
     inter = interface()
-    inter.checkPiecesMoves(sentinal, "F5")
+    inter.checkPiecesMoves(sentinal, "G4")
     
     #Checking Rook Movements
     sentinal.check_moveString("E5,E3") #True

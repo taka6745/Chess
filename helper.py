@@ -100,7 +100,7 @@ def validateKnight(initialPosition, finalPosition, gameArray, pieceWhite):
             return False
 
     for move in knightMoves:
-        if initialPosition + move == finalPosition:
+        if initialPosition[0] + move[0] == x and initialPosition[1] + move[1] == y:
             return True
     return False
 
@@ -139,11 +139,12 @@ def validateKing(initialPosition, finalPosition, gameArray, pieceWhite):
         not(finalPosition[1] in range(0, 8)):
         return False
     if gameArray[finalPosition[0]][finalPosition[1]] != " ":
-        if gameArray[finalPosition[0][finalPosition[1]]].white == \
+        if gameArray[finalPosition[0]][finalPosition[1]].white == \
             pieceWhite:
             return False
     for move in kingMoves:
-        if initialPosition + move == finalPosition:
+        if initialPosition[0] + move[0] == finalPosition[0] and \
+            initialPosition[1] + move[1] == finalPosition[1]:
             return True
     return False
 
