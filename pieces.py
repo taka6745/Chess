@@ -35,7 +35,6 @@ class Pawn(Piece):
     def __str__(self):
         return "P"
 
-
 class Queen(Piece):
     def __init__(self,colour):
         Piece.__init__(self,colour)
@@ -43,6 +42,8 @@ class Queen(Piece):
 
     def __str__(self):
         return "Q"
+
+
 class Rook(Piece):
     def __init__(self,colour):
         Piece.__init__(self,colour)
@@ -50,3 +51,7 @@ class Rook(Piece):
 
     def __str__(self):
         return "R"
+
+
+
+
