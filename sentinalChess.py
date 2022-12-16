@@ -62,7 +62,7 @@ class sentinalGame(object):
 def main():
     sentinal = sentinalGame() 
     inter = interface()
-    inter.checkPiecesMoves(sentinal, "G4")
+    inter.checkPiecesMoves(sentinal, "A7")
     
     #Checking Rook Movements
     sentinal.check_moveString("E5,E3") #True

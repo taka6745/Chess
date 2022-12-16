@@ -156,16 +156,16 @@ def validatePawn(initialPosition, finalPosition, gameArray, pieceWhite): # still
         pawnMoves.append((2,0))
         gameArray[initialPosition[0]][initialPosition[1]].has_moved = True
     if gameArray[finalPosition[0]][finalPosition[1]] != " " and gameArray[finalPosition[0]][finalPosition[1]].colour != gameArray[initialPosition[0]][initialPosition[1]].colour:
-        if pieceWhite and tuple((finalPosition[0] - initialPosition[0],finalPosition[1] - initialPosition[1])) in pawnTakeMove:
+        if pieceWhite and tuple((initialPosition[0] - finalPosition[0], initialPosition[1] - finalPosition[1])) in pawnTakeMove:
             return True
-        elif not pieceWhite and tuple((initialPosition[0] - finalPosition[0],initialPosition[1] - finalPosition[1])) in pawnTakeMove:
+        elif not pieceWhite and tuple(( finalPosition[0] - initialPosition[0], finalPosition[1] - initialPosition[1])) in pawnTakeMove:
             return True
     if not(finalPosition[0] in range(0, 8)) or \
         not(finalPosition[1] in range(0, 8)):
         return False
-    if pieceWhite and tuple((finalPosition[0] - initialPosition[0], finalPosition[1] - initialPosition[1])) not in pawnMoves:
+    if pieceWhite and tuple(( initialPosition[0] - finalPosition[0],  initialPosition[1] - finalPosition[1])) not in pawnMoves:
         return False
-    elif not pieceWhite and tuple((initialPosition[0] - finalPosition[0], initialPosition[1] - finalPosition[1])) not in pawnMoves:
+    elif not pieceWhite and tuple(( finalPosition[0] - initialPosition[0],  finalPosition[1] - initialPosition[1])) not in pawnMoves:
         return False
     
     return True
