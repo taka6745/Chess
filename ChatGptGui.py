@@ -1,7 +1,7 @@
 import tkinter as tk
 
 # Chessboard colors
-colors = ["#ffffff", "#000000"]
+colors = ["#ffffff", "#4a4a4a"]
 
 
 def create_chessboard(board):
@@ -44,4 +44,3 @@ board = [
     ["p", "p", "p", "p", "p", "p", "p", "p"],
     ["r", "n", "b", "q", "k", "b", "n", "r"],
 ]
-create_chessboard(board)

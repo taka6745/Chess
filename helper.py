@@ -7,11 +7,14 @@ Returns: Tuple of tuple of indices pertaining to moveString
 (Effectively two lots of tuples holding the x and y positions
 of initial and final positions)
 """
-def convertStringToIndex(moveString):
+def convertStringToIndex(moveString): # I've reversed this, our array system works (y,x) becuase of how the array is set
     (initialString, finalString) = moveString.split(",")
     #Convert capital character to number
-    initialPosition = (ord(initialString[0]) - 65, int(initialString[1]) - 1)
-    finalPosition = (ord(finalString[0]) - 65, int(finalString[1]) - 1)
+    # initialPosition = (ord(initialString[0]) - 65, int(initialString[1]) - 1)
+    # finalPosition = (ord(finalString[0]) - 65, int(finalString[1]) - 1)
+    initialPosition = (int(initialString[1]) - 1,ord(initialString[0]) - 65)
+    finalPosition = ( int(finalString[1]) - 1, ord(finalString[0]) - 65)
+
     return (initialPosition, finalPosition)
 
 def gameArrayChecker(gameArray, xIndex, yIndex, pieceWhite):
@@ -145,10 +148,27 @@ def validateKing(initialPosition, finalPosition, gameArray, pieceWhite):
             return True
     return False
 
-def validatePawn(initialPosition, finalPosition, gameArray, pieceWhite):
-    pass
-
-
+def validatePawn(initialPosition, finalPosition, gameArray, pieceWhite): # still needs En Passant
+    pawnMoves = [(1,0)]
+    print("Validating Pawn")
+    pawnTakeMove = [(1,1),(1,-1)]
+    if not gameArray[initialPosition[0]][initialPosition[1]].has_moved:
+        pawnMoves.append((2,0))
+        gameArray[initialPosition[0]][initialPosition[1]].has_moved = True
+    if gameArray[finalPosition[0]][finalPosition[1]] != " " and gameArray[finalPosition[0]][finalPosition[1]].colour != gameArray[initialPosition[0]][initialPosition[1]].colour:
+        if pieceWhite and tuple((finalPosition[0] - initialPosition[0],finalPosition[1] - initialPosition[1])) in pawnTakeMove:
+            return True
+        elif not pieceWhite and tuple((initialPosition[0] - finalPosition[0],initialPosition[1] - finalPosition[1])) in pawnTakeMove:
+            return True
+    if not(finalPosition[0] in range(0, 8)) or \
+        not(finalPosition[1] in range(0, 8)):
+        return False
+    if pieceWhite and tuple((finalPosition[0] - initialPosition[0], finalPosition[1] - initialPosition[1])) not in pawnMoves:
+        return False
+    elif not pieceWhite and tuple((initialPosition[0] - finalPosition[0], initialPosition[1] - finalPosition[1])) not in pawnMoves:
+        return False
+    
+    return True
 """
 validateMove()
 ----------------
@@ -168,6 +188,8 @@ def validateMove(moveString, gameArray):
     #Now, must ascertain if move is possible depending on piece
     #Use switch statement to call correct function
     pieceString = str(piece)
+
+    print(pieceString)
     match pieceString:
         case "R":
             return(validateRook(initialPosition, finalPosition, gameArray,\
