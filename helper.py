@@ -1,4 +1,4 @@
-
+from pieces import *
 """
 convertStringToIndex()
 -----------------
@@ -50,7 +50,7 @@ def minMaxHorizontal(position, gameArray):
 
 
 
-def validateRook(initialPosition, finalPosition, gameArray):
+def validateRook(initialPosition, finalPosition, gameArray, pieceWhite):
     #Method seems to work based off basic checks.
     (minX, maxX, minY, maxY) = minMaxHorizontal(initialPosition, gameArray)
     if not (initialPosition[0] == finalPosition[0]) and not\
@@ -62,19 +62,27 @@ def validateRook(initialPosition, finalPosition, gameArray):
     else:
         return False
 
-def validateKnight(initialPosition, finalPosition, gameArray):
+def validateKnight(initialPosition, finalPosition, gameArray, pieceWhite):
     knightMoves = [(-1,2), (1,2), (2,1), (2,-1), \
         (-1,-2), (-1,2), (-2,1), (-2,-1)]
     if not(finalPosition[0] in range(0,8)) or \
         not(finalPosition[1] in range(0, 8)):
         return False
+    
+    x = finalPosition[0]
+    y = finalPosition[1]
+    
+    if not(gameArray[x][y] == " "):
+        if Piece(gameArray[x][y]).white == pieceWhite:
+            return False
+
 
     for move in knightMoves:
         if initialPosition + move == finalPosition:
             return True
     return False
 
-def validateBishop(board, start, end):
+def validateBishop(board, start, end, pieceWhite):
     # check if the start and end positions are on the same diagonal
     if abs(start[0] - end[0]) != abs(start[1] - end[1]):
         return False
@@ -88,23 +96,24 @@ def validateBishop(board, start, end):
 
     while row != end[0] and col != end[1]:
         if board[row][col] != " ":
-            return False
+            if Piece(board[row][col]).white == pieceWhite: return False
         row += row_step
         col += col_step
 
     return True
-def validateQueen(initialPosition, finalPosition, gameArray):
+
+def validateQueen(initialPosition, finalPosition, gameArray, pieceWhite):
     return validateBishop(initialPosition, finalPosition, gameArray) or \
         validateRook(initialPosition, finalPosition, gameArray)
 
-def validateKing(initialPosition, finalPosition, gameArray):
+def validateKing(initialPosition, finalPosition, gameArray, pieceWhite):
     kingMoves = [(1,-1), (1,0), (1,1), (0,-1), (0,1), (-1,-1), (-1,0), (-1,1)]
     for move in kingMoves:
         if initialPosition + move == finalPosition:
             return True
     return False
 
-def validatePawn(initialPosition, finalPosition, gameArray):
+def validatePawn(initialPosition, finalPosition, gameArray, pieceWhite):
     pass
 
 
@@ -123,23 +132,29 @@ def validateMove(moveString, gameArray):
     piece = gameArray[initialPosition[0]][initialPosition[1]]
     if piece == " ":
          return False #Could give more detailed error messages
+    pieceWhite = Piece(piece).white
     #Now, must ascertain if move is possible depending on piece
     #Use switch statement to call correct function
     pieceString = str(piece)
     match pieceString:
         case "R":
-            return(validateRook(initialPosition, finalPosition, gameArray))
+            return(validateRook(initialPosition, finalPosition, gameArray,\
+                        pieceWhite))
         case "H":
-            return(validateKnight(initialPosition, finalPosition, gameArray))
+            return(validateKnight(initialPosition, finalPosition, gameArray, \
+                pieceWhite))
         case "B":
-            return(validateBishop(initialPosition, finalPosition, gameArray))
+            return(validateBishop(initialPosition, finalPosition, gameArray, \
+                pieceWhite))
         case "K":
-            return(validateKing(initialPosition, finalPosition, gameArray))
+            return(validateKing(initialPosition, finalPosition, gameArray, \
+                pieceWhite))
         case "Q":
-            return(validateQueen(initialPosition, finalPosition, gameArray))
+            return(validateQueen(initialPosition, finalPosition, gameArray, \
+                pieceWhite))
         case "P":
-            return(validatePawn(initialPosition, finalPosition, gameArray))
-
+            return(validatePawn(initialPosition, finalPosition, gameArray, \
+                pieceWhite))
 
 
 def updateBoard(startMove, endMove, board):
