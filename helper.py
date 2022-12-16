@@ -152,7 +152,7 @@ def validatePawn(initialPosition, finalPosition, gameArray, pieceWhite): # still
     pawnMoves = [(1,0)]
     print("Validating Pawn")
     pawnTakeMove = [(1,1),(1,-1)]
-    if not gameArray[initialPosition[0]][initialPosition[1]].has_moved:
+    if (initialPosition[0] == 1 and not pieceWhite) or (initialPosition[0] == 6 and pieceWhite):
         pawnMoves.append((2,0))
         gameArray[initialPosition[0]][initialPosition[1]].has_moved = True
     if gameArray[finalPosition[0]][finalPosition[1]] != " " and gameArray[finalPosition[0]][finalPosition[1]].colour != gameArray[initialPosition[0]][initialPosition[1]].colour:
