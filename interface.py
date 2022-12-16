@@ -128,7 +128,33 @@ class Board(AbstractGrid):
                     (j + 1, i + 1), str(gameArray[i][j]), text_font)
                 i += 1
             j += 1
+        
+    def draw_moves(self, sentinalGame, piecePositionString):
+        gameArray = sentinalGame.gameArray
+        for k in range(8):
+            self.annotate_position((k+1, 0), chr(k + 97), 'Brown',)
+            self.annotate_position((0, 8-k), str(k + 1), 'Brown')
 
+        j = 0
+        while j < 8:
+            i = 0
+            while i < 8:
+                moveString = piecePositionString + "," + chr(i+65) + str(j)
+                if sentinalGame.check_moveString(moveString):
+                    colour = "Blue"
+                else:
+                    colour = "White"
+                text_font = "Black"
+                box = self.get_bbox((j + 1, i + 1))
+                self.configure(bg='#B5B28F')
+                self.create_rectangle(box[0], box[1], box[2], box[3],
+                                      fill=colour)
+                self.annotate_position(
+                    (j + 1, i + 1), str(gameArray[i][j]), text_font)
+                i += 1
+            j+=1
+        
+        input("HELLO")
 
 class boardPrinter():
     def __init__(self, root, gameArray):
@@ -139,29 +165,33 @@ class boardPrinter():
         self._board = Board(root)
         self._board.pack()
         self.draw(gameArray)
-        
-        
-        
+        input("Hello")
 
     def draw(self, gameArray):
         self._board.delete("all")
         self._board.draw_pieces(gameArray)
-      
-        
-
-
 
 class interface(object):
-    def __init__(self, board):
+    def __init__(self):
         root = tk.Tk()
-        self.board = boardPrinter(root, board)
+        self._title_label = tk.Label(root, bg="green", text="SentinalChess",
+                                     fg="white")
+        self._title_label.pack(side=tk.TOP, fill=tk.X)
+        self.board = Board(root)
+        self.board.pack()
+        
 
     def moveMade(self, gameGrid):
         self.board.draw(gameGrid)
+    
+    def checkPiecesMoves(self, sentinalGame, piecePositionString):
+        self.board.draw_moves(sentinalGame, piecePositionString)
 
 
 def displayBoard(board):
     inter = interface(board)
+
+
 
 
 # if __name__ == "__main__":

@@ -1,6 +1,6 @@
 from pieces import *
 from helper import *
-from interface import displayBoard
+from interface import *
 class sentinalGame(object):
 
     def __init__(self):
@@ -51,10 +51,13 @@ class sentinalGame(object):
         at that position. Using this piece object, the check_move method is called with the moveFrom and 
         moveTo string.
         """
-        print(validateMove(moveString, self.gameArray))
+        return validateMove(moveString, self.gameArray)
 
 def main():
     sentinal = sentinalGame() 
+    inter = interface()
+    inter.checkPiecesMoves(sentinal, "D4")
+    
     #Checking Rook Movements
     sentinal.check_moveString("E5,E3") #True
     sentinal.check_moveString("E5,E6") #True
