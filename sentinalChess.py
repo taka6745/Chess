@@ -27,11 +27,14 @@ class sentinalGame(object):
             self.gameArray[1][i] = Pawn("White")
             self.gameArray[6][i] = Pawn("Black")
         
-        displayBoard(self.gameArray)
-        input("Hi")
-        self.gameArray = updateBoard((1,0),(3,0),self.gameArray)
-        displayBoard(self.gameArray)
-        input("Hello")
+        self.gameArray[3][3] = Bishop("White")
+        self.gameArray[4][4] = Rook("White")
+        
+        #displayBoard(self.gameArray)
+        #input("Hi")
+        #self.gameArray = updateBoard((1,0),(3,0),self.gameArray)
+        #displayBoard(self.gameArray)
+        #input("Hello")
     def attemptMove(self):
         moveString = input("Your move: ")
         validateMove(moveString, self.gameArray)
@@ -51,12 +54,23 @@ class sentinalGame(object):
         print(validateMove(moveString, self.gameArray))
 
 def main():
-    #Checking Rook Movements
     sentinal = sentinalGame() 
-    sentinal.check_moveString("D4,D2") #False
-    sentinal.check_moveString("D4,D6") #True
-    sentinal.check_moveString("D4,A4") #True
-    sentinal.check_moveString("D4,H4") #True 
-    sentinal.check_moveString("D4,C6") #False
+    #Checking Rook Movements
+    sentinal.check_moveString("E5,E3") #True
+    sentinal.check_moveString("E5,E6") #True
+    sentinal.check_moveString("E5,E7") #True
+    sentinal.check_moveString("E5,E2") #False
+    sentinal.check_moveString("E5,A5") #True
+    sentinal.check_moveString("E5,H5") #True
+    sentinal.check_moveString("E5,C3") #False
+    #Checking Bishop Movement#s
+    #sentinal.check_moveString("D4,D2") #False
+    #sentinal.check_moveString("D4,C3") #True
+    #sentinal.check_moveString("D4,E5") #True
+    #sentinal.check_moveString("D4,F6") #True 
+    #sentinal.check_moveString("D4,F5") #False
+    #sentinal.check_moveString("D4,G7") #True
+    #sentinal.check_moveString("D4,H8") #False
+
 if __name__ == "__main__":
     main()

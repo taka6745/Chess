@@ -16,17 +16,10 @@ def convertStringToIndex(moveString):
 
 def gameArrayChecker(gameArray, xIndex, yIndex, pieceWhite):
     if not (gameArray[xIndex][yIndex] == " "):
-        if Piece(gameArray[xIndex][yIndex]).white == pieceWhite:
+        if gameArray[xIndex][yIndex].white == pieceWhite:
             return True
 
 
-"""
-validatePieceFunctions()
-----------------
-initialPosition: tuple of starting position
-finalPosition: tuple of ending position
-Returns: True if move possible, false if otherwise
-"""
 def minMaxHorizontal(position, gameArray, pieceWhite):
     positionX = position[0]
     positionY = position[1]
@@ -56,21 +49,39 @@ def minMaxHorizontal(position, gameArray, pieceWhite):
     
     return (minX, maxX, minY, maxY)
 
-
-
+"""
+validatePieceFunctions()
+----------------
+initialPosition: tuple of starting position
+finalPosition: tuple of ending position
+Returns: True if move possible, false if otherwise
+"""
 def validateRook(initialPosition, finalPosition, gameArray, pieceWhite):
     #Method seems to work based off basic checks.
-    (minX, maxX, minY, maxY) = minMaxHorizontal(initialPosition, gameArray, \
-        pieceWhite)
+    #(minX, maxX, minY, maxY) = minMaxHorizontal(initialPosition, gameArray, \
+     #   pieceWhite)
+    start = initialPosition
+    end = finalPosition
     if not (initialPosition[0] == finalPosition[0]) and not\
          (initialPosition[1] == finalPosition[1]):
         return False
-
-    elif finalPosition[0] in range(minX, maxX) and \
-        finalPosition[1] in range(minY, maxY):
-        return True
-    else:
-        return False
+    if gameArray[end[1]][end[0]] != " ":
+        if gameArray[end[1]][end[0]].white == pieceWhite:
+            return False
+    row_step = 0
+    col_step = 0
+    if start[0] == end[0]:
+        col_step = 1 if start[1] < end[1] else -1
+    elif start[1] == end[1]:
+        row_step = 1 if start[0] < end[0] else -1
+    row = start[0] + row_step
+    col = start[1] + col_step
+    while row != end[0] and col != end[1]:
+        if gameArray[row][col] != " ": return False
+        row+=row_step
+        col+=col_step
+    
+    return True
 
 def validateKnight(initialPosition, finalPosition, gameArray, pieceWhite):
     knightMoves = [(-1,2), (1,2), (2,1), (2,-1), \
@@ -83,18 +94,19 @@ def validateKnight(initialPosition, finalPosition, gameArray, pieceWhite):
     y = finalPosition[1]
     
     if not(gameArray[x][y] == " "):
-        if Piece(gameArray[x][y]).white == pieceWhite:
+        if gameArray[x][y].white == pieceWhite:
             return False
-
 
     for move in knightMoves:
         if initialPosition + move == finalPosition:
             return True
     return False
 
-def validateBishop(board, start, end, pieceWhite):
+def validateBishop(initialPosition, finalPosition, gameArray, pieceWhite):
     # check if the start and end positions are on the same diagonal
-    if abs(start[0] - end[0]) != abs(start[1] - end[1]):
+    start = initialPosition
+    end = finalPosition
+    if abs(int(start[0]) - int(end[0])) != abs(int(start[1]) - int(end[1])):
         return False
     if start[0] > 7 or start[1] > 7 or end[0] > 7 or end[1] > 7:
         return False
@@ -103,10 +115,12 @@ def validateBishop(board, start, end, pieceWhite):
     col_step = 1 if start[1] < end[1] else -1
     row = start[0] + row_step
     col = start[1] + col_step
+    if gameArray[end[0]][end[1]] != " ":
+        if gameArray[end[0]][end[1]].white == pieceWhite:
+            return False
 
     while row != end[0] and col != end[1]:
-        if board[row][col] != " ":
-            if Piece(board[row][col]).white == pieceWhite: return False
+        if gameArray[row][col] != " ": return False
         row += row_step
         col += col_step
 
@@ -123,7 +137,7 @@ def validateKing(initialPosition, finalPosition, gameArray, pieceWhite):
         not(finalPosition[1] in range(0, 8)):
         return False
     if gameArray[finalPosition[0]][finalPosition[1]] != " ":
-        if Piece(gameArray[finalPosition[0][finalPosition[1]]]).white == \
+        if gameArray[finalPosition[0][finalPosition[1]]].white == \
             pieceWhite:
             return False
     for move in kingMoves:
@@ -150,7 +164,7 @@ def validateMove(moveString, gameArray):
     piece = gameArray[initialPosition[0]][initialPosition[1]]
     if piece == " ":
          return False #Could give more detailed error messages
-    pieceWhite = Piece(piece).white
+    pieceWhite = piece.white
     #Now, must ascertain if move is possible depending on piece
     #Use switch statement to call correct function
     pieceString = str(piece)
