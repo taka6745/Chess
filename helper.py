@@ -158,7 +158,7 @@ def validatePawn(initialPosition, finalPosition, gameArray, pieceWhite): # still
     if gameArray[finalPosition[0]][finalPosition[1]] != " " and gameArray[finalPosition[0]][finalPosition[1]].colour != gameArray[initialPosition[0]][initialPosition[1]].colour:
         if pieceWhite and tuple((initialPosition[0] - finalPosition[0], initialPosition[1] - finalPosition[1])) in pawnTakeMove:
             return True
-        elif not pieceWhite and tuple(( finalPosition[0] - initialPosition[0], finalPosition[1] - initialPosition[1])) in pawnTakeMove:
+        elif not pieceWhite and gameArray[finalPosition[0]][finalPosition[1]] != " " and tuple(( finalPosition[0] - initialPosition[0], finalPosition[1] - initialPosition[1])) in pawnTakeMove:
             return True
     if not(finalPosition[0] in range(0, 8)) or \
         not(finalPosition[1] in range(0, 8)):
