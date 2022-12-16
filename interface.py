@@ -132,27 +132,48 @@ class Board(AbstractGrid):
     def draw_moves(self, sentinalGame, piecePositionString):
         gameArray = sentinalGame.gameArray
         for k in range(8):
-            self.annotate_position((k+1, 0), chr(k + 97), 'Brown',)
+            self.annotate_position((k+1, 0), chr(k + 97), 'Brown')
             self.annotate_position((0, 8-k), str(k + 1), 'Brown')
-
-        j = 0
-        while j < 8:
-            i = 0
-            while i < 8:
-                moveString = piecePositionString + "," + chr(i+65) + str(j)
+        
+        for rowIndex in range(0, 8):
+            for colIndex in range(0, 8):
+                moveString = piecePositionString + "," + chr(colIndex+65) \
+                     + str(8 - rowIndex)
                 if sentinalGame.check_moveString(moveString):
+                    print(moveString)
                     colour = "Blue"
                 else:
                     colour = "White"
-                text_font = "Black"
-                box = self.get_bbox((j + 1, i + 1))
+
                 self.configure(bg='#B5B28F')
+                text_font = "Black"
+                box = self.get_bbox((colIndex+1, rowIndex+1))
                 self.create_rectangle(box[0], box[1], box[2], box[3],
                                       fill=colour)
-                self.annotate_position(
-                    (j + 1, i + 1), str(gameArray[i][j]), text_font)
-                i += 1
-            j+=1
+                self.annotate_position((colIndex+1, rowIndex+1), \
+                    str(gameArray[rowIndex][colIndex]), text_font)
+
+
+
+
+        #j = 0
+        #while j < 8:
+            #i = 0
+            #while i < 8:
+                #moveString = piecePositionString + "," + chr(i+65) + str(j)
+                #if sentinalGame.check_moveString(moveString):
+                    #colour = "Blue"
+                #else:
+                    #colour = "White"
+                #text_font = "Black"
+                #box = self.get_bbox((j + 1, i + 1))
+                #self.configure(bg='#B5B28F')
+                #self.create_rectangle(box[0], box[1], box[2], box[3],
+                                      #fill=colour)
+                #self.annotate_position(
+                    #(j + 1, i + 1), str(gameArray[i][j]), text_font)
+                #i += 1
+            #j+=1
         
         input("HELLO")
 

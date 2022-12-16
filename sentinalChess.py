@@ -7,28 +7,32 @@ class sentinalGame(object):
         numColumns = 8
         numRows = 8
         self.gameArray = [[" " for _ in range(numColumns)] for _ in range(numRows)]
-        self.gameArray[0][0] = Rook("White")
-        self.gameArray[0][1] = Knight("White")
-        self.gameArray[0][2] = Bishop("White")
-        self.gameArray[0][3] = Queen("White")
-        self.gameArray[0][4] = King("White")
-        self.gameArray[0][5] = Bishop("White")
-        self.gameArray[0][6] = Knight("White")
-        self.gameArray[0][7] = Rook("White")
-        self.gameArray[7][0] = Rook("Black")
-        self.gameArray[7][1] = Knight("Black")
-        self.gameArray[7][2] = Bishop("Black")
-        self.gameArray[7][3] = Queen("Black")
-        self.gameArray[7][4] = King("Black")
-        self.gameArray[7][5] = Bishop("Black")
-        self.gameArray[7][6] = Knight("Black")
-        self.gameArray[7][7] = Rook("Black")
+        self.gameArray[7][0] = Rook("White")
+        self.gameArray[7][1] = Knight("White")
+        self.gameArray[7][2] = Bishop("White")
+        self.gameArray[7][3] = Queen("White")
+        self.gameArray[7][4] = King("White")
+        self.gameArray[7][5] = Bishop("White")
+        self.gameArray[7][6] = Knight("White")
+        self.gameArray[7][7] = Rook("White")
+        self.gameArray[0][0] = Rook("Black")
+        self.gameArray[0][1] = Knight("Black")
+        self.gameArray[0][2] = Bishop("Black")
+        self.gameArray[0][3] = Queen("Black")
+        self.gameArray[0][4] = King("Black")
+        self.gameArray[0][5] = Bishop("Black")
+        self.gameArray[0][6] = Knight("Black")
+        self.gameArray[0][7] = Rook("Black")
         for i in range(8):
-            self.gameArray[1][i] = Pawn("White")
-            self.gameArray[6][i] = Pawn("Black")
+            self.gameArray[6][i] = Pawn("White")
+            self.gameArray[1][i] = Pawn("Black")
         
         self.gameArray[3][3] = Bishop("White")
         self.gameArray[4][4] = Rook("White")
+        self.gameArray[3][5] = Queen("Black")
+
+        #With that above, A1 is (7, 0), A8 is (0, 0)
+        #H1 is (7, 7) and H8 is (0,7)
         
         #displayBoard(self.gameArray)
         #input("Hi")
@@ -56,7 +60,7 @@ class sentinalGame(object):
 def main():
     sentinal = sentinalGame() 
     inter = interface()
-    inter.checkPiecesMoves(sentinal, "D4")
+    inter.checkPiecesMoves(sentinal, "F5")
     
     #Checking Rook Movements
     sentinal.check_moveString("E5,E3") #True

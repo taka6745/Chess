@@ -12,8 +12,8 @@ def convertStringToIndex(moveString): # I've reversed this, our array system wor
     #Convert capital character to number
     # initialPosition = (ord(initialString[0]) - 65, int(initialString[1]) - 1)
     # finalPosition = (ord(finalString[0]) - 65, int(finalString[1]) - 1)
-    initialPosition = (int(initialString[1]) - 1,ord(initialString[0]) - 65)
-    finalPosition = ( int(finalString[1]) - 1, ord(finalString[0]) - 65)
+    initialPosition = (8 - int(initialString[1]), (ord(initialString[0]) - 65))
+    finalPosition = (8 - int(finalString[1]) , (ord(finalString[0]) - 65))
 
     return (initialPosition, finalPosition)
 
@@ -68,8 +68,8 @@ def validateRook(initialPosition, finalPosition, gameArray, pieceWhite):
     if not (initialPosition[0] == finalPosition[0]) and not\
          (initialPosition[1] == finalPosition[1]):
         return False
-    if gameArray[end[1]][end[0]] != " ":
-        if gameArray[end[1]][end[0]].white == pieceWhite:
+    if gameArray[end[0]][end[1]] != " ":
+        if gameArray[end[0]][end[1]].white == pieceWhite:
             return False
     row_step = 0
     col_step = 0
@@ -79,11 +79,10 @@ def validateRook(initialPosition, finalPosition, gameArray, pieceWhite):
         row_step = 1 if start[0] < end[0] else -1
     row = start[0] + row_step
     col = start[1] + col_step
-    while row != end[0] and col != end[1]:
+    while row != end[0] or col != end[1]:
         if gameArray[row][col] != " ": return False
         row+=row_step
         col+=col_step
-    
     return True
 
 def validateKnight(initialPosition, finalPosition, gameArray, pieceWhite):
@@ -132,7 +131,7 @@ def validateBishop(initialPosition, finalPosition, gameArray, pieceWhite):
 def validateQueen(initialPosition, finalPosition, gameArray, pieceWhite):
     return validateBishop(initialPosition, finalPosition, gameArray, \
         pieceWhite) or validateRook(initialPosition, finalPosition, \
-            gameArray)
+            gameArray, pieceWhite)
 
 def validateKing(initialPosition, finalPosition, gameArray, pieceWhite):
     kingMoves = [(1,-1), (1,0), (1,1), (0,-1), (0,1), (-1,-1), (-1,0), (-1,1)]
@@ -189,7 +188,6 @@ def validateMove(moveString, gameArray):
     #Use switch statement to call correct function
     pieceString = str(piece)
 
-    print(pieceString)
     match pieceString:
         case "R":
             return(validateRook(initialPosition, finalPosition, gameArray,\
