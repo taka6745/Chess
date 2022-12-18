@@ -215,7 +215,7 @@ def validateMove(moveString, gameArray):
         case "P":
             return(validatePawn(initialPosition, finalPosition, gameArray, \
                 pieceWhite))
-def validMoves(piecePositionString, board,colour):
+def validMoves_forCheck(piecePositionString, board,colour):
         king = False
         for rowIndex in range(0, 8):
             for colIndex in range(0, 8):
@@ -235,7 +235,7 @@ def check(board,colour): # the colour is to see what colour is in check
                     #if board[colIndex][rowIndex].colour != colour:
                     
                     # print(board[colIndex][rowIndex].colour)
-                    if validMoves(chr(colIndex+65) + str(8 - rowIndex),board,colour):
+                    if validMoves_forCheck(chr(colIndex+65) + str(8 - rowIndex),board,colour):
                         return True
                 except:
                     pass
