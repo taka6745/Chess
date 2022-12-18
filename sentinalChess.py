@@ -25,10 +25,10 @@ class sentinalGame(object):
         self.gameArray[0][7] = Rook("Black")
         for i in range(8):
             self.gameArray[6][i] = Pawn("White")
-            self.gameArray[1][i] = Pawn("Black")
-        self.gameArray[3][5] = Pawn("White") 
-        self.gameArray[3][3] = Pawn("Black") 
-        self.gameArray[3][4] = Queen("White") 
+            #self.gameArray[1][i] = Pawn("Black")
+        self.gameArray[2][5] = Pawn("Black") 
+        self.gameArray[3][4] = King("White") 
+        # self.gameArray[3][4] = Queen("White") 
         
         #With that above, A1 is (7, 0), A8 is (0, 0)
         #H1 is (7, 7) and H8 is (0,7)
@@ -57,11 +57,16 @@ class sentinalGame(object):
         return validateMove(moveString, self.gameArray)
 
 def main():
+    
+    
     sentinal = sentinalGame() 
+    
+
     inter = interface()
-    inter.checkPiecesMoves(sentinal, "E5") #pawns can play checkers with their double moves
-    print(sentinal.check_moveString("E5,E6"))
- 
+    print(check(sentinal.gameArray,"White"))
+    inter.checkPiecesMoves(sentinal, "F6") #pawns can play checkers with their double moves
+    #print(sentinal.check_moveString("E5,E6"))
+    
     
 
 if __name__ == "__main__":

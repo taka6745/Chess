@@ -215,8 +215,31 @@ def validateMove(moveString, gameArray):
         case "P":
             return(validatePawn(initialPosition, finalPosition, gameArray, \
                 pieceWhite))
-
-
+def validMoves(piecePositionString, board,colour):
+        king = False
+        for rowIndex in range(0, 8):
+            for colIndex in range(0, 8):
+                moveString = piecePositionString + "," + chr(colIndex+65) \
+                     + str(8 - rowIndex)
+                if validateMove(moveString, board):
+                    
+                    initialPosition, finalPosition = convertStringToIndex(moveString)
+                    if str(board[finalPosition[0]][finalPosition[1]]) == "K" and board[finalPosition[0]][finalPosition[1]].colour == colour:
+                        
+                        king = True
+        return king
+def check(board,colour): # the colour is to see what colour is in check
+    for rowIndex in range(0, 8):
+            for colIndex in range(0, 8):
+                try:
+                    #if board[colIndex][rowIndex].colour != colour:
+                    
+                    # print(board[colIndex][rowIndex].colour)
+                    if validMoves(chr(colIndex+65) + str(8 - rowIndex),board,colour):
+                        return True
+                except:
+                    pass
+    return False
 def updateBoard(startMove, endMove, board):
     board[endMove[0]][endMove[1]] = board[startMove[0]][startMove[1]]
     board[startMove[0]][startMove[1]] = ' '
