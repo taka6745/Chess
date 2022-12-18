@@ -86,24 +86,24 @@ def validateRook(initialPosition, finalPosition, gameArray, pieceWhite):
     return True
 
 def validateKnight(initialPosition, finalPosition, gameArray, pieceWhite):
-    knightMoves = [(-1,2), (1,2), (2,1), (2,-1), \
-        (-1,-2), (-1,2), (-2,1), (-2,-1)]
+    knightMoves = [(-1,2), (1,2), (2,1), (2,-1),(-1,-2), (-1,2), (-2,1), (-2,-1),(1,-2)]
     if not(finalPosition[0] in range(0,8)) or \
         not(finalPosition[1] in range(0, 8)):
+        
         return False
-    
     x = finalPosition[0]
     y = finalPosition[1]
     
     if not(gameArray[x][y] == " "):
         if gameArray[x][y].white == pieceWhite:
+           
             return False
-
     for move in knightMoves:
+        
         if initialPosition[0] + move[0] == x and initialPosition[1] + move[1] == y:
             return True
+    
     return False
-
 def validateBishop(initialPosition, finalPosition, gameArray, pieceWhite):
     # check if the start and end positions are on the same diagonal
     start = initialPosition
