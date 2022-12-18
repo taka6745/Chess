@@ -64,16 +64,18 @@ class sentinalGame(object):
 def main():
     sentinal = sentinalGame() 
     inter = interface()
-    inter.checkPiecesMoves(sentinal, "D3")
+    inter.checkPiecesMoves(sentinal, "D2") #pawns can play checkers with their double moves
     
+ 
+    """  
     #Checking Rook Movements
-    sentinal.check_moveString("E5,E3") #True
-    sentinal.check_moveString("E5,E6") #True
-    sentinal.check_moveString("E5,E7") #True
-    sentinal.check_moveString("E5,E2") #False
-    sentinal.check_moveString("E5,A5") #True
-    sentinal.check_moveString("E5,H5") #True
-    sentinal.check_moveString("E5,C3") #False
+    print(sentinal.check_moveString("E5,E3")) #True  #These are all false
+    print(sentinal.check_moveString("E5,E6")) #True
+    print(sentinal.check_moveString("E5,E7")) #True
+    print(sentinal.check_moveString("E5,E2")) #False
+    print(sentinal.check_moveString("E5,A5")) #True
+    print(sentinal.check_moveString("E5,H5")) #True
+    print(sentinal.check_moveString("E5,C3")) #False
     #Checking Bishop Movement#s
     #sentinal.check_moveString("D4,D2") #False
     #sentinal.check_moveString("D4,C3") #True
@@ -81,7 +83,7 @@ def main():
     #sentinal.check_moveString("D4,F6") #True 
     #sentinal.check_moveString("D4,F5") #False
     #sentinal.check_moveString("D4,G7") #True
-    #sentinal.check_moveString("D4,H8") #False
+    #sentinal.check_moveString("D4,H8") #False"""
 
 if __name__ == "__main__":
     main()
