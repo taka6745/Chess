@@ -140,7 +140,7 @@ class Board(AbstractGrid):
                 moveString = piecePositionString + "," + chr(colIndex+65) \
                      + str(8 - rowIndex)
                 if sentinalGame.check_moveString(moveString):
-                    print(moveString)
+                    
                     colour = "Blue"
                 else:
                     colour = "White"

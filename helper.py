@@ -86,24 +86,24 @@ def validateRook(initialPosition, finalPosition, gameArray, pieceWhite):
     return True
 
 def validateKnight(initialPosition, finalPosition, gameArray, pieceWhite):
-    knightMoves = [(-1,2), (1,2), (2,1), (2,-1), \
-        (-1,-2), (-1,2), (-2,1), (-2,-1)]
+    knightMoves = [(-1,2), (1,2), (2,1), (2,-1),(-1,-2), (-1,2), (-2,1), (-2,-1),(1,-2)]
     if not(finalPosition[0] in range(0,8)) or \
         not(finalPosition[1] in range(0, 8)):
+        
         return False
-    
     x = finalPosition[0]
     y = finalPosition[1]
     
     if not(gameArray[x][y] == " "):
         if gameArray[x][y].white == pieceWhite:
+           
             return False
-
     for move in knightMoves:
+        
         if initialPosition[0] + move[0] == x and initialPosition[1] + move[1] == y:
             return True
+    
     return False
-
 def validateBishop(initialPosition, finalPosition, gameArray, pieceWhite):
     # check if the start and end positions are on the same diagonal
     start = initialPosition
@@ -150,10 +150,13 @@ def validateKing(initialPosition, finalPosition, gameArray, pieceWhite):
 
 def validatePawn(initialPosition, finalPosition, gameArray, pieceWhite): # still needs En Passant
     pawnMoves = [(1,0)]
-    print("Validating Pawn")
+    
     pawnTakeMove = [(1,1),(1,-1)]
     if (initialPosition[0] == 1 and not pieceWhite) or (initialPosition[0] == 6 and pieceWhite):
-        pawnMoves.append((2,0))
+        if pieceWhite and gameArray[initialPosition[0]-1][initialPosition[1]] == " ":
+            pawnMoves.append((2,0))
+        elif not pieceWhite and gameArray[initialPosition[0]+1][initialPosition[1]] == " ":
+            pawnMoves.append((2,0))
     if gameArray[finalPosition[0]][finalPosition[1]] != " ":
 
         if gameArray[finalPosition[0]][finalPosition[1]].colour != gameArray[initialPosition[0]][initialPosition[1]].colour:
@@ -212,8 +215,31 @@ def validateMove(moveString, gameArray):
         case "P":
             return(validatePawn(initialPosition, finalPosition, gameArray, \
                 pieceWhite))
-
-
+def validMoves_forCheck(piecePositionString, board,colour):
+        king = False
+        for rowIndex in range(0, 8):
+            for colIndex in range(0, 8):
+                moveString = piecePositionString + "," + chr(colIndex+65) \
+                     + str(8 - rowIndex)
+                if validateMove(moveString, board):
+                    
+                    initialPosition, finalPosition = convertStringToIndex(moveString)
+                    if str(board[finalPosition[0]][finalPosition[1]]) == "K" and board[finalPosition[0]][finalPosition[1]].colour == colour:
+                        
+                        king = True
+        return king
+def check(board,colour): # the colour is to see what colour is in check
+    for rowIndex in range(0, 8):
+            for colIndex in range(0, 8):
+                try:
+                    #if board[colIndex][rowIndex].colour != colour:
+                    
+                    # print(board[colIndex][rowIndex].colour)
+                    if validMoves_forCheck(chr(colIndex+65) + str(8 - rowIndex),board,colour):
+                        return True
+                except:
+                    pass
+    return False
 def updateBoard(startMove, endMove, board):
     board[endMove[0]][endMove[1]] = board[startMove[0]][startMove[1]]
     board[startMove[0]][startMove[1]] = ' '
