@@ -1,0 +1,8 @@
+{
+    "title": "Chess Game",
+    "description": "This project is a chess game developed using the Python chess library. It offers a text-based interface where players can make moves by specifying the source and target squares. The chess library in Python handles the game rules and logic, ensuring legal moves, handling special moves like castling and en passant, and checking for game-ending conditions like checkmate and stalemate.",
+    "type": "Game",
+    "photo": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSvfHJHyBVP0UDcE3ub9UYrK3qYcbfoCO6Dyew9qYRKqqyTlwsx",
+    "tags": "Python, Chess",
+    "related_projects": "GitHub Portfolio API"
+}
